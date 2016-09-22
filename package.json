@@ -21,10 +21,11 @@
   },
   "homepage": "http://material-ui.com/",
   "scripts": {
-    "build": "npm run build:icon-index && npm run build:babel && npm run build:copy-files",
+    "build": "npm run build:icon-index && npm run build:babel && npm run build:copy-files && npm run build:tarball",
     "build:icon-index": "babel-node ./scripts/icon-index-generator.js",
     "build:babel": "babel ./src --ignore *.spec.js --out-dir ./build",
     "build:copy-files": "babel-node ./scripts/copy-files.js",
+    "build:tarball": "mkdir -p ./dist && cd ./build && tar -cvzf ../dist/material-ui.tar.gz ./",
     "clean:build": "rimraf build",
     "lint": "eslint src docs/src test/integration && echo \"eslint: no lint errors\"",
     "lint:find-rules": "eslint-find-rules -u .eslintrc.js",
