@@ -173,6 +173,7 @@ class DialogInline extends Component {
     title: PropTypes.node,
     titleClassName: PropTypes.string,
     titleStyle: PropTypes.object,
+    topBottomSpace: PropTypes.number,
   };
 
   static contextTypes = {
@@ -196,6 +197,7 @@ class DialogInline extends Component {
       open,
       repositionOnUpdate,
       title,
+      topBottomSpace,
     } = this.props;
 
     if (!open) {
@@ -213,7 +215,7 @@ class DialogInline extends Component {
     dialogContent.style.height = '';
 
     const dialogWindowHeight = dialogWindow.offsetHeight;
-    let paddingTop = ((clientHeight - dialogWindowHeight) / 2) - 64;
+    let paddingTop = ((clientHeight - dialogWindowHeight) / 2) - topBottomSpace;
     if (paddingTop < minPaddingTop) paddingTop = minPaddingTop;
 
     // Vertically center the dialog window, but make sure it doesn't
@@ -226,7 +228,7 @@ class DialogInline extends Component {
     if (autoDetectWindowHeight || autoScrollBodyContent) {
       const styles = getStyles(this.props, this.context);
       styles.body = Object.assign(styles.body, bodyStyle);
-      let maxDialogContentHeight = clientHeight - 2 * 64;
+      let maxDialogContentHeight = clientHeight - 2 * topBottomSpace;
 
       if (title) maxDialogContentHeight -= dialogContent.previousSibling.offsetHeight;
 
@@ -464,6 +466,8 @@ class Dialog extends Component {
      * Overrides the inline-styles of the title's root container element.
      */
     titleStyle: PropTypes.object,
+
+    topBottomSpace: PropTypes.number,
   };
 
   static contextTypes = {
@@ -475,6 +479,7 @@ class Dialog extends Component {
     autoScrollBodyContent: false,
     modal: false,
     repositionOnUpdate: true,
+    topBottomSpace: 64,
   };
 
   renderLayer = () => {
