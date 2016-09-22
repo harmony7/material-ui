@@ -3,6 +3,8 @@ import {Component, PropTypes} from 'react';
 let originalBodyOverflow = null;
 let lockingCounter = 0;
 
+let bodyPreventDefault = function(e) { e.preventDefault(); };
+
 export default class AutoLockScrolling extends Component {
 
   static propTypes = {
@@ -42,6 +44,7 @@ export default class AutoLockScrolling extends Component {
       const body = document.getElementsByTagName('body')[0];
       originalBodyOverflow = body.style.overflow;
       body.style.overflow = 'hidden';
+      body.addEventListener("touchmove", bodyPreventDefault);
     }
   }
 
@@ -55,6 +58,7 @@ export default class AutoLockScrolling extends Component {
       const body = document.getElementsByTagName('body')[0];
       body.style.overflow = originalBodyOverflow || '';
       originalBodyOverflow = null;
+      body.removeEventListener("touchmove", bodyPreventDefault);
     }
   }
 
