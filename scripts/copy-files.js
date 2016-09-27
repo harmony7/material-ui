@@ -58,7 +58,7 @@ function createPackageFile() {
     } = packageData;
 
     const minimalPackage = {
-      name: 'material-ui',
+      name: '@jazel/material-ui',
       author,
       version,
       description,
